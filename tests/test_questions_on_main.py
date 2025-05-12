@@ -2,7 +2,6 @@ import allure
 import pytest
 from data import AnswerBlock
 from pages.main_page import MainPage
-from conftest import driver
 
 
 class TestQuestions:

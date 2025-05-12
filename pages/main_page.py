@@ -1,6 +1,8 @@
 import allure
 
+from selenium.webdriver.support.wait import WebDriverWait
 from locators.drop_down_list_on_main_with_questions import MainPageLocators
+from locators.navigate_for_order import ButtonLocators
 from pages.foundation_page import FoundationPage
 from data import ServiceUrl
 
@@ -32,3 +34,22 @@ class MainPage(FoundationPage):
         self.scroll_to_element(locator)
         self.click_on_element(locator)
 
+    @allure.step('Клик на логотип Яндекс')
+    def click_on_logo_yandex(self):
+        self.click_on_element(ButtonLocators.BUTTON_YANDEX)
+
+
+    @allure.step('Клик на логотип Самокат')
+    def click_on_logo_samokat(self):
+        self.click_on_element(ButtonLocators.BUTTON_SAMOKAT)
+
+    @allure.step('Переход в новую вкладку')
+    def wait_for_new_window_and_switch(self, expected_url_part="dzen.ru", timeout=15):
+        WebDriverWait(self.driver, timeout).until(
+            lambda d: len(d.window_handles) > 1
+        )
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+        WebDriverWait(self.driver, timeout).until(
+            lambda d: expected_url_part in d.current_url.lower(),
+            message=f"URL не содержит '{expected_url_part}'. Текущий URL: {self.driver.current_url}"
+        )
