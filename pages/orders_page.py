@@ -1,10 +1,10 @@
 import allure
 
 from locators.navigate_for_order import OrderLocators
-from pages.foundation_page import FoundationPage
+from pages.base_page import BasePage
 
 
-class OrderPage(FoundationPage):
+class OrderPage(BasePage):
 
 
     @allure.step('Оформление заказа')

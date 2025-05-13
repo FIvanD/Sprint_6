@@ -6,6 +6,7 @@ class ButtonLocators:
     BUTTON_YANDEX = By.XPATH, '//a[@href = "//yandex.ru"]'
     BUTTON_SAMOKAT = By.XPATH, '//a[@href= "/"]'
     BUTTON_COOKIE = By.XPATH, '//button[text()= "да все привыкли"]'
+    BUTTON_FIND = By.XPATH, '//button[text()="Найти"]'
 
 class OrderLocators:
 

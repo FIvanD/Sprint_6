@@ -1,14 +1,13 @@
 import allure
 
-from selenium.webdriver.support.wait import WebDriverWait
 from locators.drop_down_list_on_main_with_questions import MainPageLocators
 from locators.navigate_for_order import ButtonLocators
-from pages.foundation_page import FoundationPage
+from pages.base_page import BasePage
 from data import ServiceUrl
 
 
 
-class MainPage(FoundationPage):
+class MainPage(BasePage):
 
     @allure.step('Переход по ссылке')
     def open_curl_samokat(self):
@@ -43,13 +42,6 @@ class MainPage(FoundationPage):
     def click_on_logo_samokat(self):
         self.click_on_element(ButtonLocators.BUTTON_SAMOKAT)
 
-    @allure.step('Переход в новую вкладку')
-    def wait_for_new_window_and_switch(self, expected_url_part="dzen.ru", timeout=15):
-        WebDriverWait(self.driver, timeout).until(
-            lambda d: len(d.window_handles) > 1
-        )
-        self.driver.switch_to.window(self.driver.window_handles[-1])
-        WebDriverWait(self.driver, timeout).until(
-            lambda d: expected_url_part in d.current_url.lower(),
-            message=f"URL не содержит '{expected_url_part}'. Текущий URL: {self.driver.current_url}"
-        )
+    @allure.step('Ожидание кнопки поиск')
+    def wait_for_button_find(self):
+        self.wait_for_element(ButtonLocators.BUTTON_FIND)
